@@ -1,0 +1,25 @@
+{
+  "name": "travelokuy_",
+  "version": "1.0.0",
+  "description": "pair-project-phase-1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Taufik11o22o12/travelokuy_.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Taufik11o22o12/travelokuy_/issues"
+  },
+  "homepage": "https://github.com/Taufik11o22o12/travelokuy_#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "pg": "^7.4.1",
+    "sequelize": "^4.37.6"
+  }
+}
