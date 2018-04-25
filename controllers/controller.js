@@ -1,5 +1,7 @@
 const router = require('express').Router();
 const Model = require('../models');
+const hashPassword = require('../helpers/helper_hash_password');
+var session = require('express-session')
 
 class Controller {
   constructor() {
@@ -23,6 +25,27 @@ class Controller {
 
   }
 
+  static login(req, res){
+
+    Model.Customer.findOne({where:{email : req.body.email}})
+
+    .then(response => {
+
+      if (hashPassword(req.body.password, response.password)){
+
+        req.session.email = response.email
+
+        res.send('berhasil')
+
+      } else {
+
+        res.send('gagal')
+
+      }
+
+    })
+
+  }
 
 }
 
