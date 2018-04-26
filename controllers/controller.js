@@ -10,42 +10,58 @@ class Controller {
 
   static register(req, res){
 
-    const new_account = {
-      name: req.body.name,
-      phone: req.body.phone_number,
-      email: req.body.email,
-      password: req.body.password
+    if (req.body.name == '' || req.body.phone_number == '' || req.body.email == '' || req.body.password == '') {
+
+        res.send('error')
+
+    } else {
+
+      const new_account = {
+        name: req.body.name,
+        phone: req.body.phone_number,
+        email: req.body.email,
+        password: req.body.password
+      }
+
+      Model.Customer.create(new_account)
+
+      .then(response => {
+        res.render('login/login')
+      })
+
     }
-
-    Model.Customer.create(new_account)
-
-    .then(response => {
-      res.render('login/login')
-    })
 
   }
 
   static login(req, res){
 
-    Model.Customer.findOne({where:{email : req.body.email}})
+    if (req.body.email == '' || req.body.password == '') {
 
-    .then(response => {
+        res.send('error')
 
-      if (hashPassword(req.body.password, response.password)){
+    } else {
 
-        req.session.email = response.email
+      Model.Customer.findOne({where:{email : req.body.email}})
 
-        req.session.idCustomer = response.id
+      .then(response => {
 
-        res.send('berhasil')
+        if (hashPassword(req.body.password, response.password)){ 
+          
+          req.session.idCustomer = response.id
 
-      } else {
+          req.session.email = response.email
 
-        res.send('gagal')
+          res.send('berhasil')
 
-      }
+        } else {
 
-    })
+          res.send('gagal')
+
+        }
+
+      })
+
+    } 
 
   }
 
