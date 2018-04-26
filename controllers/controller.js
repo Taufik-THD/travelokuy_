@@ -35,6 +35,8 @@ class Controller {
 
         req.session.email = response.email
 
+        req.session.idCustomer = response.id
+
         res.send('berhasil')
 
       } else {

@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Customer.associate = function(models) {
     // associations can be defined here
+    Customer.belongsToMany(models.Ticket, { through: models.TicketCustomer })
   };
 
   Customer.hook('beforeSave', (user, options) => {
