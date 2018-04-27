@@ -1,7 +1,7 @@
 const checkLoginRegister = (req, res, next) => {
 
   if (req.session.email) {
-    res.send('ada yang login')
+    res.redirect('/menu/search')
   } else {
     next()
   }

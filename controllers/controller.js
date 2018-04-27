@@ -20,7 +20,8 @@ class Controller {
         name: req.body.name,
         phone: req.body.phone_number,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        role : 'user'
       }
 
       Model.Customer.create(new_account)
@@ -47,9 +48,15 @@ class Controller {
 
         if (hashPassword(req.body.password, response.password)){
 
+          if(response.role === 'admin'){
+            res.redirect('/admin')
+          }else{
+
+          req.session.idCustomer = response.id
           req.session.email = response.email
 
-          res.send('berhasil')
+          res.redirect('/menu/search')
+          }
 
         } else {
 
@@ -59,7 +66,7 @@ class Controller {
 
       })
 
-    } 
+    }
 
   }
 

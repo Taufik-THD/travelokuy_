@@ -9,6 +9,10 @@ routes.use(session({
   saveUninitialized: true
 }))
 
+routes.get('', checkLoginRegister, (req, res) => {
+  res.render('homepage')
+})
+
 routes.get('/register', checkLoginRegister, (req, res) => {
   res.render('register/register')
 })
