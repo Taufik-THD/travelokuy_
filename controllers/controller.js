@@ -46,7 +46,9 @@ class Controller {
 
       .then(response => {
 
-        if (hashPassword(req.body.password, response.password)){
+        if (hashPassword(req.body.password, response.password)){ 
+          
+          req.session.idCustomer = response.id
 
           if(response.role === 'admin'){
             res.redirect('/admin')
