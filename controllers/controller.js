@@ -25,7 +25,6 @@ class Controller {
       }
 
       Model.Customer.create(new_account)
-
       .then(response => {
         res.render('login/login')
       })
@@ -46,8 +45,8 @@ class Controller {
 
       .then(response => {
 
-        if (hashPassword(req.body.password, response.password)){ 
-          
+        if (hashPassword(req.body.password, response.password)){
+
           req.session.idCustomer = response.id
 
           if(response.role === 'admin'){

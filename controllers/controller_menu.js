@@ -25,13 +25,11 @@ class Controller{
   static buyingTicket(req,res){
 
     Model.Ticket.findOne(
-      {
-        where:
-        {
+    {
+        where:{
           id:req.params.id
         }
-      })
-
+    })
       .then(listDataTicket => {
         res.render('menu/sureToBuy',{ listDataTicket})
       })
@@ -77,7 +75,7 @@ class Controller{
 
   static getHistory(req, res){
 
-    Model.Customer.findAll({ include: [ Model.Ticket ], order: [ [ Model.Ticket, 'flightSchedule', 'ASC' ] ] })
+    Model.Customer.findAll({where:{id : req.session.idCustomer}, include: [ Model.Ticket ]})
 
     .then(data => {
 
@@ -90,6 +88,14 @@ class Controller{
   }
 
   static minus(req, res){
+
+    let conjungtionID = {
+      TicketId : req.params.id,
+      CustomerId : req.session.idCustomer
+    }
+
+    console.log(conjungtionID);
+
     Model.Ticket.findOne({
       where: {id: req.params.id}
     })
@@ -105,6 +111,7 @@ class Controller{
       }
 
       Model.Ticket.update(update_qty, { where: { id: req.params.id } })
+      Model.TicketCustomer.create(conjungtionID)
 
       .then(result => {
         res.render('menu/search_menu');
